@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Navbar() {
   return (
     <div className="w-full h-28 bg-slate-100 ">
@@ -6,9 +8,9 @@ export default function Navbar() {
           <h1>Student Register</h1>
         </div>
         <div className="flex justify-center items-center gap-6 text-1xl font-semibold text-red-500">
-          <p>Home</p>
-          <p>Home</p>
-          <p>Home</p>
+          <Link to="/">Home</Link>
+          <Link to="/sign-up">SignUp</Link>
+          <Link to="/login">Login</Link>
         </div>
       </nav>
     </div>
