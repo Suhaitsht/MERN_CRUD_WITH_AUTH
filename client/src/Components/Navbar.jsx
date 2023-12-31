@@ -7,7 +7,7 @@ export default function Navbar() {
         <div className="my-10 text-3xl uppercase text-black font-semibold">
           <h1>Student Register</h1>
         </div>
-        <div className="flex justify-center items-center gap-6 text-1xl font-semibold text-red-500">
+        <div className="flex justify-center items-center gap-6 text-1xl font-semibold text-red-500 uppercase">
           <Link to="/">Home</Link>
           <Link to="/sign-up">SignUp</Link>
           <Link to="/login">Login</Link>
