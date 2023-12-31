@@ -1,27 +1,27 @@
 const express = require("express");
+const {
+  StudentCreate,
+  GetallStudent,
+  GetSingleStudent,
+  UpdateSingleStudent,
+  DeleteStudent,
+} = require("../Controllers/StudentController");
 
 const router = express.Router();
 
+// create a student data
+router.post("/", StudentCreate);
+
 // get all student data
-router.get("/", (req, res) => {
-  res.status(200).json({ messages: "get routes all works" });
-});
+router.get("/", GetallStudent);
 
 // get single data
-router.get("/:id", (req, res) => {
-  const { id } = req.params;
-  res.status(200).json({ messages: id });
-});
+router.get("/:id", GetSingleStudent);
+
+// update single data
+router.patch("/:id", UpdateSingleStudent);
 
 // delete a student data
-router.delete("/:id", (req, res) => {
-  const { id } = req.params;
-  res.status(200).json({ messages: id });
-});
-
-// create a student data
-router.post("/", (req, res) => {
-  res.status(200).json({ messages: "this messages from post " });
-});
+router.delete("/:id", DeleteStudent);
 
 module.exports = router;
