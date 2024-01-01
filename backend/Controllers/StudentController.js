@@ -44,12 +44,15 @@ const GetSingleStudent = async (req, res) => {
 };
 const UpdateSingleStudent = async (req, res) => {
   const { id } = req.params;
+  const { firstname, lastname, address } = req.body;
+
+  console.log(firstname, lastname, address);
 
   const studentDoc = await Student.findByIdAndUpdate(
     { _id: id },
     { ...req.body }
   );
-  res.status(200).json(studentDoc);
+  res.status(200).json({ messages: "Data Updated Successfully" });
   try {
   } catch (error) {
     res.status(400).json({ error: error.messages });
@@ -61,7 +64,7 @@ const DeleteStudent = async (req, res) => {
 
   try {
     const studentDoc = await Student.findByIdAndDelete({ _id: id });
-    res.status(200).json(studentDoc);
+    res.status(200).json({ messages: "Record Deleted Successfully" });
   } catch (error) {
     res.status(400).json({ error: error.messages });
   }
