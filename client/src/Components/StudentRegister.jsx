@@ -21,6 +21,7 @@ export default function StudentRegister() {
 
     if (response.ok) {
       toast.success(res.messages);
+      setFormData({});
     } else {
       toast.error(res.messages);
     }
