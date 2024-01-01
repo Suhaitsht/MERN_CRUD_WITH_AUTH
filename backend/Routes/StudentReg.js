@@ -19,7 +19,7 @@ router.get("/", GetallStudent);
 router.get("/:id", GetSingleStudent);
 
 // update single data
-router.patch("/:id", UpdateSingleStudent);
+router.put("/:id", UpdateSingleStudent);
 
 // delete a student data
 router.delete("/:id", DeleteStudent);
