@@ -5,7 +5,7 @@ const StudentCreate = async (req, res) => {
   const { firstname, lastname, address } = req.body;
 
   if (!firstname || !lastname || !address) {
-    return res.status(400).json("All fields are required");
+    return res.status(400).json({ messages: "All fields are required" });
   }
 
   try {
@@ -15,7 +15,9 @@ const StudentCreate = async (req, res) => {
       address,
     });
 
-    res.status(200).json(studentDoc);
+    res
+      .status(200)
+      .json({ messages: "Record inserted successful", studentDoc });
   } catch (error) {
     res.status(400).json({ error: error.messages });
   }

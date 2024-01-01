@@ -2,9 +2,16 @@ const express = require("express");
 const mongoose = require("mongoose");
 const env = require("dotenv");
 const studentRoute = require("./Routes/StudentReg");
+const cors = require("cors");
 
 const app = express();
 app.use(express.json());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 env.config();
 
 app.use((req, res, next) => {
