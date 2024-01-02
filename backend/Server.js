@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const env = require("dotenv");
 const studentRoute = require("./Routes/StudentReg");
+const authRouter = require("./Routes/UserRouts");
 const cors = require("cors");
 
 const app = express();
@@ -20,6 +21,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/student", studentRoute);
+app.use("/api/auth", authRouter);
 
 mongoose
   .connect(process.env.MONGODB_URL)
