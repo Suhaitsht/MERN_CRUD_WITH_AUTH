@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { Navigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function StudentEdit() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -43,13 +44,15 @@ export default function StudentEdit() {
       toast.error(res.error);
     } else {
       toast.success(res.messages);
-      setRedirect(true);
-    }
-
-    if (redirect) {
-      return <Navigate to={"/"} />;
+      setTimeout(() => {
+        setRedirect(true);
+      }, 2000);
     }
   };
+
+  if (redirect) {
+    return navigate(-1);
+  }
 
   return (
     <div className="max-w-[600px] h-[550px]  my-9 mx-auto ">
