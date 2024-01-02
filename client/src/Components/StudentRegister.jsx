@@ -1,8 +1,10 @@
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { useStudentContext } from "../Hooks/useStudentContext";
 
 export default function StudentRegister() {
   const [formData, setFormData] = useState({});
+  const { dispatch } = useStudentContext();
 
   const handleData = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -22,6 +24,7 @@ export default function StudentRegister() {
     if (response.ok) {
       toast.success(res.messages);
       setFormData({});
+      dispatch({ type: "Create_Student", payload: res.studentDoc });
     } else {
       toast.error(res.messages);
     }
