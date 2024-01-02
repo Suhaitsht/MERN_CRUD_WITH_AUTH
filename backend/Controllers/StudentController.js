@@ -1,4 +1,3 @@
-const { json } = require("express");
 const Student = require("../Models/StudentRegister.model");
 
 const StudentCreate = async (req, res) => {
@@ -64,7 +63,9 @@ const DeleteStudent = async (req, res) => {
 
   try {
     const studentDoc = await Student.findByIdAndDelete({ _id: id });
-    res.status(200).json({ messages: "Record Deleted Successfully" });
+    res
+      .status(200)
+      .json({ messages: "Record Deleted Successfully", studentDoc });
   } catch (error) {
     res.status(400).json({ error: error.messages });
   }
