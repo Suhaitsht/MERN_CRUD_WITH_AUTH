@@ -1,10 +1,11 @@
 import StudentDetails from "../Components/StudentViewTable";
 import StudentRegister from "../Components/StudentRegister";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { toast, Toaster } from "react-hot-toast";
+import { useStudentContext } from "../Hooks/useStudentContext";
 
 export default function Home() {
-  const [StudentData, setSudentData] = useState(null);
+  const { dispatch } = useStudentContext();
 
   useEffect(() => {
     const fetchdata = async () => {
@@ -17,7 +18,8 @@ export default function Home() {
       if (!response.ok) {
         toast.error(res);
       }
-      setSudentData(res);
+
+      dispatch({ type: "Display_Student", payload: res });
     };
 
     fetchdata();
@@ -27,7 +29,7 @@ export default function Home() {
     <div>
       <StudentRegister />
 
-      <StudentDetails StudentData={StudentData} />
+      <StudentDetails />
       <Toaster />
     </div>
   );
