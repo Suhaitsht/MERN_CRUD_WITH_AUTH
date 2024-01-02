@@ -1,6 +1,8 @@
 import TableBody from "./TableBody";
+import { useStudentContext } from "../Hooks/useStudentContext";
 
-export default function StudentDetails({ StudentData }) {
+export default function StudentDetails() {
+  const { Students } = useStudentContext();
   return (
     <div className="grid place-content-center">
       <div className="text-center py-7">
@@ -18,8 +20,8 @@ export default function StudentDetails({ StudentData }) {
           </tr>
         </thead>
         <tbody className="text-center ">
-          {StudentData &&
-            StudentData.map((data) => (
+          {Students &&
+            Students.map((data) => (
               <tr
                 key={data._id}
                 className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
