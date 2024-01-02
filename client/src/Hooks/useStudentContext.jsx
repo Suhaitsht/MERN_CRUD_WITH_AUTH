@@ -6,7 +6,7 @@ export const useStudentContext = () => {
 
   if (!context) {
     throw Error(
-      "useWorkoutContext must be used inside an workoutsContextProvide"
+      "useStudentContext must be used inside an workoutsContextProvide"
     );
   }
 
