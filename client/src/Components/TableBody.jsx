@@ -1,7 +1,10 @@
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import { useStudentContext } from "../Hooks/useStudentContext";
 
 export default function TableBody({ data }) {
+  const { dispatch } = useStudentContext();
+
   const handleDelete = async () => {
     const response = await fetch(
       `http://localhost:4000/api/student/${data._id}`,
@@ -17,6 +20,7 @@ export default function TableBody({ data }) {
     }
 
     toast.success(res.messages);
+    dispatch({ type: "Delete_Student", payload: res.studentDoc });
   };
 
   return (
