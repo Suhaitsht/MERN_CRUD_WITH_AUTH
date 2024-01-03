@@ -6,6 +6,7 @@ import UseLogin from "../Hooks/UseLogin";
 export default function Login() {
   const [formData, setFormData] = useState({});
   const { login } = UseLogin();
+  const form = document.getElementById('login');
 
   const handleFormData = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -13,11 +14,11 @@ export default function Login() {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    await login(formData);
+    await login(formData,form);
   };
   return (
     <div className="max-w-[600px] h-[550px]  my-9 mx-auto ">
-      <form onSubmit={handleFormSubmit}>
+      <form onSubmit={handleFormSubmit} id="login">
         <h3 className="text-3xl uppercase font-serif text-center">login</h3>
         <div className="grid  mt-10 gap-4">
           <label className="text-md font-semibold"> UserName</label>
