@@ -10,7 +10,7 @@ const UserSignup = async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    res.status(400).json({ messages: "All Fields are required " });
+    res.status(400).json({ err: "All Fields are required " });
     return false;
   }
 
@@ -31,7 +31,7 @@ const UserLogin = async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    res.status(400).json({ messages: "All fields are required" });
+    res.status(400).json({ err: "All fields are required" });
     return false;
   }
 
@@ -39,19 +39,19 @@ const UserLogin = async (req, res) => {
     const user = await userDoc.findOne({ username });
 
     if (!user) {
-      res.status(400).json({ messages: "Invalid username" });
+      res.status(400).json({ err: "Invalid username" });
       return false;
     }
 
     const match = bcrypt.compareSync(password, user.password);
 
     if (!match) {
-      res.status(400).json({ messages: "invalid password" });
+      res.status(400).json({ err: "invalid password" });
       return false;
     }
 
     const token = createToken(user._id);
-    console.log(token);
+
     res.status(200).json({ username, token });
   } catch (error) {
     res.status(400).json(error);

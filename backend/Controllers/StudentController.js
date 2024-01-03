@@ -8,10 +8,12 @@ const StudentCreate = async (req, res) => {
   }
 
   try {
+    const user_id = req.user._id;
     const studentDoc = await Student.create({
       firstname,
       lastname,
       address,
+      user_id,
     });
 
     res
@@ -23,8 +25,9 @@ const StudentCreate = async (req, res) => {
 };
 
 const GetallStudent = async (req, res) => {
+  const user_id = req.user._id;
   try {
-    const studentDoc = await Student.find();
+    const studentDoc = await Student.find({ user_id });
     res.status(200).json(studentDoc);
   } catch (error) {
     res.status(400).res.json({ error: error.messages });
