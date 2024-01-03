@@ -1,10 +1,13 @@
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useStudentContext } from "../Hooks/useStudentContext";
+import { useAuthContext } from "../Hooks/useAuthContext";
 
 export default function StudentRegister() {
   const [formData, setFormData] = useState({});
   const { dispatch } = useStudentContext();
+  const { user } = useAuthContext();
+  const form = document.getElementById("student");
 
   const handleData = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -13,10 +16,17 @@ export default function StudentRegister() {
   const handelSubmit = async (e) => {
     e.preventDefault();
 
+    if (!user) {
+      toast.error("You must be logged in");
+    }
+
     const response = await fetch("http://localhost:4000/api/student/", {
       method: "POST",
       body: JSON.stringify(formData),
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
     });
 
     const res = await response.json();
@@ -24,6 +34,7 @@ export default function StudentRegister() {
     if (response.ok) {
       toast.success(res.messages);
       setFormData({});
+      form.reset();
       dispatch({ type: "Create_Student", payload: res.studentDoc });
     } else {
       toast.error(res.messages);
@@ -33,7 +44,7 @@ export default function StudentRegister() {
   return (
     <>
       <div className="max-w-[600px] h-[550px]  my-9 mx-auto ">
-        <form onSubmit={handelSubmit}>
+        <form onSubmit={handelSubmit} id="student">
           <h3 className="text-3xl uppercase font-serif text-center">
             Student Registration
           </h3>
