@@ -16,7 +16,6 @@ app.use(
 env.config();
 
 app.use((req, res, next) => {
-  console.log(req.path, req.method);
   next();
 });
 
@@ -33,13 +32,3 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
-
-// app.use((err, req, res, next) => {
-//   const statusCode = err.statusCode || 500;
-//   const message = err.message || "Internal Server Error";
-//   return res.status(statusCode).json({
-//     success: false,
-//     message,
-//     statusCode,
-//   });
-// });
