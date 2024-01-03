@@ -1,23 +1,29 @@
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
+import { useAuthContext } from "../Hooks/useAuthContext";
 
 export default function StudentEdit() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuthContext();
 
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [address, setAddress] = useState("");
   const [redirect, setRedirect] = useState(false);
 
+
+
   useEffect(() => {
     const fetchdata = async () => {
       const response = await fetch(`http://localhost:4000/api/student/${id}`, {
         method: "GET",
+        headers:{"Authorization": `Bearer ${user.token}`}
       });
 
       const res = await response.json();
+   
       setAddress(res.address);
       setFirstname(res.firstname);
       setLastname(res.lastname);
@@ -36,7 +42,10 @@ export default function StudentEdit() {
     const response = await fetch(`http://localhost:4000/api/student/${id}`, {
       method: "PUT",
       body: JSON.stringify({ firstname, lastname, address }),
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${user.token}`,
+      },
     });
     const res = await response.json();
 
@@ -58,6 +67,7 @@ export default function StudentEdit() {
     <div className="max-w-[600px] h-[550px]  my-9 mx-auto ">
       <form onSubmit={handleSubmit}>
         <h3 className="text-3xl uppercase font-serif text-center">
+        
           Update Registration
         </h3>
         <div className="grid  mt-10 gap-4">
