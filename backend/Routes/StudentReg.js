@@ -6,8 +6,10 @@ const {
   UpdateSingleStudent,
   DeleteStudent,
 } = require("../Controllers/StudentController");
+const requireAuth = require("../middleware/requireAuth");
 
 const router = express.Router();
+router.use(requireAuth);
 
 // create a student data
 router.post("/", StudentCreate);
