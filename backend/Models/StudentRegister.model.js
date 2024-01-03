@@ -15,6 +15,10 @@ const StudentSchema = new Schema(
       type: String,
       require: true,
     },
+    user_id: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );
