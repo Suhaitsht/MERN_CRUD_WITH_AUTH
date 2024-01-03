@@ -1,15 +1,23 @@
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { useStudentContext } from "../Hooks/useStudentContext";
+import { useAuthContext } from "../Hooks/useAuthContext";
 
 export default function TableBody({ data }) {
   const { dispatch } = useStudentContext();
+  const { user } = useAuthContext();
 
   const handleDelete = async () => {
+    if (!user) {
+      toast.error("You must be login");
+    }
     const response = await fetch(
       `http://localhost:4000/api/student/${data._id}`,
       {
-        method: "Delete",
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${user.token}`,
+        },
       }
     );
 
@@ -61,6 +69,7 @@ export default function TableBody({ data }) {
             />
           </svg>
         </Link>
+        <Toaster />
       </td>
     </>
   );
